@@ -1,0 +1,56 @@
+{   
+    "dataset": {
+        "type": "ReadSOL",
+        "args": {
+            "path_to_dataset": "/data/yinjyun/datasets/sol/acidsInstruments-ordinario/data/"
+        }
+    },
+    "transform-1": {
+        "type": "AudioRead",
+        "args": {
+            "sr": 22050,
+            "offset": 0.2,
+            "duration": 2
+        }
+    },
+    "transform-3": {
+        "type": "Spectrogram",
+        "args": {
+            "sr": 22050,
+            "n_fft": 2048,
+            "hop_size": 512,
+            "n_band": 256,
+            "fmin": 27,
+            "fmax": 11000,
+            "spec_type": "melspec"
+        }
+    },
+    "transform-5": {
+        "type": "ToTensor"
+    },
+    "transform-6": {
+        "type": "ChunkSpec",
+        "args": {
+            "duration": 0.5,
+            "sr": 22050,
+            "hop_size": 512
+        }
+    },
+    "transform-7": {
+        "type": "PickFirstChunk"
+    },
+    "transform-4": {
+        "type": "LogCompress",
+        "args": {
+            "factor": 10
+        }
+    },
+    "transform-8": {
+        "type": "Clipping",
+        "args": {
+            "clip_val": -100
+        }
+    },
+    "save_dir": "/data/yinjyun/datasets/sol/acidsInstruments-ordinario/data/",
+    "save_subdir": "melspec_256-first_chunk-fix_piano"
+}
