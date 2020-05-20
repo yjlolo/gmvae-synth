@@ -45,4 +45,5 @@ Please kindly cite the paper as follows if you find it useful.
 
 # TODO
 - [ ] Clean up the code
+- [ ] Add comments
 - [ ] Confirm if the raw audio files can be released
