@@ -1,5 +1,7 @@
 For reproducing the paper [Learning Disentangled Representations of Timbre and Pitch for Musical Instrument Sounds Using Gaussian Mixture Variational Autoencoders](https://arxiv.org/abs/1906.08152?fbclid=IwAR3yBPx71nPt0uO6GjVqdJxQxzStiyz3osf6mFUCW_cMIarwykZM5_tfUpU).
 
+The repo is based on the (old) [project template](https://github.com/victoresque/pytorch-template).
+
 # Reproducing steps
 1. Download the dataset from [Zenodo](https://zenodo.org/record/3833974#.XsUiWi2B3OQ).
    Put the folder `data` at the root of this repo.
