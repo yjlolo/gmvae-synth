@@ -9,7 +9,7 @@ The repo is based on the (old) [project template](https://github.com/victoresque
 
 The checkpoint `model_best.pth` will be saved at `saved/gmvae-synth`.
 After the training completes, 
-play with `ismir19-217-sup-material.ipynb` to see the results shown in the paper.
+play with `ismir19-217-sup-material.ipynb` to see the results.
 
 # Details missing from the paper
 A pitch classifier which takes as input the pitch latent variable is added on top of the pitch space.
