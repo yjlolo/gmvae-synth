@@ -11,16 +11,6 @@ import model.model as module_arch
 from trainer import GMVAE_Trainer
 from utils import Logger, get_instance
 
-def make_determine():
-    random.seed(0)
-    os.environ['PYTHONHASHSEED'] = str(0)
-    np.random.seed(0)
-    torch.manual_seed(0)
-    torch.cuda.manual_seed(0)
-    torch.cuda.manual_seed_all(0)
-    torch.backends.cudnn.enabled = False
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
 
 def weights_init(m):
     if isinstance(m, torch.nn.Linear):
@@ -37,26 +27,19 @@ def main(config, resume):
     dd = np.setdiff1d(valid_data_loader.sampler.indices,
                       np.load('data/valid_idx.npy'))
     assert len(dd) == 0
-    # print(data_loader.sampler.indices)
-    # print(valid_data_loader.sampler.indices)
-    # print(np.array(data_loader.dataset.path_to_data)[np.array(data_loader.sampler.indices)])
-    # print(np.array(data_loader.dataset.path_to_data)[np.array(valid_data_loader.sampler.indices)])
 
     # build model architecture
-    # make_determine()
     model = get_instance(module_arch, 'arch', config)
     model.apply(weights_init)
-    # print(model)
+    print(model)
 
     # get function handles of loss and metrics
-    # loss = getattr(module_loss, config['loss'])
     loss = {l_i: get_instance(module_loss, l_i, config) for l_i in config if 'loss' in l_i}
     metrics = [getattr(module_metric, met) for met in config['metrics']]
 
     # build optimizer, learning rate scheduler. delete every lines containing lr_scheduler for disabling scheduler
     trainable_params = filter(lambda p: p.requires_grad, model.parameters())
     optimizer = get_instance(torch.optim, 'optimizer', config, trainable_params)
-    lr_scheduler = get_instance(torch.optim.lr_scheduler, 'lr_scheduler', config, optimizer)
 
     trainer = GMVAE_Trainer(model, loss, metrics, optimizer,
                             resume=resume,
@@ -64,7 +47,6 @@ def main(config, resume):
                             data_loader=data_loader,
                             label_portion=config['trainer']['label_portion'],
                             valid_data_loader=valid_data_loader,
-                            # lr_scheduler=lr_scheduler,
                             train_logger=train_logger)
 
     trainer.train()
